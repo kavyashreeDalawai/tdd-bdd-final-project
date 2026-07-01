@@ -117,8 +117,8 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(found_product.name, product.name)
         self.assertEqual(found_product.description, product.description)
         self.assertEqual(found_product.price, product.price)
-
-   def test_update_a_product(self):
+        
+    def test_update_a_product(self):
         """It should Update a Product"""
         product = ProductFactory()
         product.id = None
