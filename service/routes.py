@@ -101,6 +101,16 @@ def create_products():
 #
 # PLACE YOUR CODE TO LIST ALL PRODUCTS HERE
 #
+@app.route("/products", methods=["GET"])
+def list_products():
+    """Returns a list of Products"""
+    app.logger.info("Request to list Products...")
+
+    products = Product.all()
+
+    results = [product.serialize() for product in products]
+    app.logger.info("[%s] Products returned", len(results))
+    return results, status.HTTP_200_OK
 
 ######################################################################
 # R E A D   A   P R O D U C T
@@ -109,9 +119,7 @@ def create_products():
 #
 # PLACE YOUR CODE HERE TO READ A PRODUCT
 #
-######################################################################
-# READ A PRODUCT
-######################################################################
+
 @app.route("/products/<int:product_id>", methods=["GET"])
 def get_products(product_id):
     """
@@ -176,20 +184,6 @@ def delete_products(product_id):
     return "", status.HTTP_204_NO_CONTENT
 
 ######################################################################
-# LIST ALL PRODUCTS
-######################################################################
-@app.route("/products", methods=["GET"])
-def list_products():
-    """Returns a list of Products"""
-    app.logger.info("Request to list Products...")
-
-    products = Product.all()
-
-    results = [product.serialize() for product in products]
-    app.logger.info("[%s] Products returned", len(results))
-    return results, status.HTTP_200_OK
-
-######################################################################
 # LIST BY NAME
 ######################################################################
 @app.route("/products", methods=["GET"])
@@ -210,8 +204,6 @@ def list_products():
     results = [product.serialize() for product in products]
     app.logger.info("[%s] Products returned", len(results))
     return results, status.HTTP_200_OK
-
-
 ######################################################################
 # LIST BY CATEGORY
 ######################################################################
